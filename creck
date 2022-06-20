@@ -6120,9 +6120,22 @@ local id = game.RbxAnalyticsService:GetClientId()
 
 local hash = md5.tohex(md5.new():update(sha(id)):finish())
 
+local fail = {
+    StatusMessage = "Bad Request",
+    Success = false,
+    StatusCode = 400,
+    Cookies = {},
+    Body = "You're not whitelisted! (if you are a buyer then please repeat the whitelisting process)"
+}
+
+
 local req;req=hookfunction(syn.request,function(troll)
-	if troll.Url == "https://coffeeware.paderos-neko.shop/http/logger/skid/lmaoo?hwid="..id then
+	if troll.Url == "https://coffeeware.paderos-neko.shop/http/logger/skid/lmaoo?hwid="..id then 
 		return {StatusMessage="OK",Body = hash,Success=true,StatusCode=200}
+	elseif troll.Url:sub(1,65) == "https://coffeeware.paderos-neko.shop/http/logger/skid/lmaoo?hwid=" and troll.Url:sub(65,#troll.Url) ~= hash then -- VERY SMART CHECK PADERO.............
+		return fail
+	elseif troll.Url == "https://coffeeware.paderos-neko.shop/version" then 
+		return {Body = "v1.0.0"}
 	end
 	return req(troll)
 end)
