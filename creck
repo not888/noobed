@@ -6130,7 +6130,8 @@ end)
 loadstring(game:HttpGet("https://github.com/not888/noobed/blob/main/coffeeware?raw=true"))()
 local ui = game.CoreGui["Coffeeware v1.0.0"].Main
 while task.wait() do
-ui["Coffeeware v1.0.0"].Text = "Sangware v5.0.0"
-ui.avatar.Image="rbxassetid://6552522568"
-ui.greetings.Text = "Hi, SERVANT OF SANG"
+	ui["Coffeeware v1.0.0"].Text = "Sangware X (Version 4000)"
+	ui.avatar.Image="rbxassetid://6552522568"
+	ui.greetings.Text = "Hi, SERVANT OF SANG"
+	ui.greetings.Position = UDim2.new(0,480,0,381)
 end
