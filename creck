@@ -6128,17 +6128,25 @@ local fail = {
     Body = "You're not whitelisted! (if you are a buyer then please repeat the whitelisting process)"
 }
 
+local uilib = game:HttpGet("https://raw.githubusercontent.com/not888/noobed/main/ui")
+local agh;agh=hookfunction(game.HttpGet,newcclosure(function(ok,g)
+	if g == "https://raw.githubusercontent.com/shidemuri/scripts/main/ui_lib.lua" then
+		return uilib
+	end
+	return agh(ok,g)
+end))
 
-local req;req=hookfunction(syn.request,function(troll)
-	if troll.Url == "https://coffeeware.paderos-neko.shop/http/logger/skid/lmaoo?hwid="..id then 
+local req;req=hookfunction(syn.request,newcclosure(function(troll)
+	local url = troll.Url
+	if url == "https://coffeeware.paderos-neko.shop/http/logger/skid/lmaoo?hwid="..id then 
 		return {StatusMessage="OK",Body = hash,Success=true,StatusCode=200}
-	elseif troll.Url:sub(1,65) == "https://coffeeware.paderos-neko.shop/http/logger/skid/lmaoo?hwid=" and troll.Url:sub(65,#troll.Url) ~= hash then -- VERY SMART CHECK PADERO.............
+	elseif url:sub(1,65) == "https://coffeeware.paderos-neko.shop/http/logger/skid/lmaoo?hwid=" and url:sub(65,#url) ~= hash then -- VERY SMART CHECK PADERO.............
 		return fail
-	elseif troll.Url == "https://coffeeware.paderos-neko.shop/version" then 
+	elseif url == "https://coffeeware.paderos-neko.shop/version" then 
 		return {Body = "v1.0.0"}
 	end
 	return req(troll)
-end)
+end))
 
 loadstring(game:HttpGet("https://github.com/not888/noobed/blob/main/coffeeware?raw=true"))()
 local ui = game.CoreGui["Coffeeware v1.0.0"].Main
